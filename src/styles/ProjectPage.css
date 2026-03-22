@@ -1,0 +1,487 @@
+.project-page {
+  min-height: 100vh;
+  padding-top: 80px;
+  background-color: #000;
+  color: #fff;
+  font-family: 'Courier New', monospace;
+}
+
+.project-page-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.project-page-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px);
+  font-family: 'Courier New', monospace;
+  color: #fff;
+}
+
+/* Back Button */
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  margin-bottom: 2rem;
+}
+
+.back-button:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+/* Section Styles */
+.project-section {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #333;
+}
+
+.project-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.section-heading {
+  font-family: 'Courier New', monospace;
+  font-size: 1.1rem;
+  color: var(--color-terracotta);
+  margin: 0 0 1.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+
+.section-content {
+  font-family: 'Courier New', monospace;
+}
+
+/* Section 1: Title */
+.title-section {
+  text-align: left;
+  padding-bottom: 2rem;
+}
+
+.project-title {
+  font-family: 'Courier New', monospace;
+  font-size: 3rem;
+  color: #fff;
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  line-height: 1.2;
+}
+
+.project-tagline {
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  color: #aaa;
+  margin: 0;
+  line-height: 1.6;
+  max-width: 800px;
+}
+
+/* Section 2: Team */
+.team-members {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.team-member {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  border: 1px solid #333;
+  transition: all 0.3s ease;
+}
+
+.team-member:hover {
+  border-color: #555;
+  background-color: #222;
+}
+
+.member-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--color-terracotta);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.member-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.member-name {
+  font-size: 1rem;
+  color: #fff;
+  font-weight: 600;
+}
+
+.member-role {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+/* Section 3: Overview */
+.overview-section .section-content p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #ccc;
+  margin: 0;
+}
+
+/* Section 4: Tools & Technologies */
+.tools-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.tool-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.6rem 1.2rem;
+  background-color: #1a1a1a;
+  border-radius: 6px;
+  border: 1px solid #333;
+  transition: all 0.3s ease;
+}
+
+.tool-item:hover {
+  background-color: #fff;
+  border-color: #fff;
+}
+
+.tool-item:hover .tool-name {
+  color: #000;
+}
+
+.tool-name {
+  font-size: 0.95rem;
+  color: #fff;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+/* Section 5: Implementation */
+.implementation-section .section-content > p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #ccc;
+  margin: 0;
+}
+
+/* Section 6: Details */
+.implementation-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.implementation-step {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: var(--color-terracotta);
+  color: white;
+  border-radius: 50%;
+  font-size: 1rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.step-content {
+  flex: 1;
+  padding-top: 0.25rem;
+}
+
+.step-content p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #ccc;
+  margin: 0;
+}
+
+/* Section 7: Pictures */
+.gallery-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.main-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.main-image-wrapper {
+  position: relative;
+  flex: 1;
+  max-width: 100%;
+  height: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.main-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.image-counter {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+}
+
+.gallery-nav-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background-color: transparent;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.gallery-nav-button:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+/* Thumbnail Strip */
+.thumbnail-strip {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 0.5rem 0;
+  justify-content: flex-start;
+}
+
+.thumbnail {
+  flex-shrink: 0;
+  width: 70px;
+  height: 50px;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 2px solid #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  background: none;
+}
+
+.thumbnail:hover {
+  border-color: #666;
+}
+
+.thumbnail.active {
+  border-color: #fff;
+  border-width: 3px;
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Section 8: Additional Links */
+.links-container {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  font-family: 'Courier New', monospace;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.project-link.github {
+  background-color: #24292e;
+  color: white;
+  border: 1px solid #24292e;
+}
+
+.project-link.github:hover {
+  background-color: #2f363d;
+  border-color: #2f363d;
+  transform: translateY(-2px);
+}
+
+.project-link.live {
+  background-color: var(--color-terracotta);
+  color: white;
+  border: 1px solid var(--color-terracotta);
+}
+
+.project-link.live:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.project-link.additional {
+  background-color: #4a5568;
+  color: white;
+  border: 1px solid #4a5568;
+}
+
+.project-link.additional:hover {
+  background-color: #5a6578;
+  border-color: #5a6578;
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .project-title {
+    font-size: 2.5rem;
+  }
+
+  .main-image-wrapper {
+    height: 350px;
+  }
+
+  .implementation-step {
+    gap: 1rem;
+  }
+
+  .step-number {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+  }
+
+  .team-members {
+    flex-direction: column;
+  }
+
+  .team-member {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .project-page-container {
+    padding: 1rem;
+  }
+
+  .project-title {
+    font-size: 2rem;
+    letter-spacing: 1px;
+  }
+
+  .project-tagline {
+    font-size: 1rem;
+  }
+
+  .section-heading {
+    font-size: 1rem;
+  }
+
+  .main-image-wrapper {
+    height: 280px;
+  }
+
+  .gallery-nav-button {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
+  }
+
+  .thumbnail {
+    width: 55px;
+    height: 40px;
+  }
+
+  .implementation-step {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .step-number {
+    width: 28px;
+    height: 28px;
+    font-size: 0.85rem;
+  }
+
+  .step-content {
+    padding-top: 0;
+  }
+
+  .links-container {
+    flex-direction: column;
+  }
+
+  .project-link {
+    justify-content: center;
+  }
+
+  .overview-section .section-content p,
+  .step-content p {
+    font-size: 1rem;
+  }
+}
