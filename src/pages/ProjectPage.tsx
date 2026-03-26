@@ -36,14 +36,16 @@ const ProjectPage: FC = () => {
   }, [projectId, navigate]);
 
   const handleNextImage = () => {
-    if (project) {
-      setCurrentImageIndex((prev) => (prev + 1) % project.images.length);
+    if (project?.images && project.images.length > 0) {
+      const len = project.images.length;
+      setCurrentImageIndex((prev) => (prev + 1) % len);
     }
   };
 
   const handlePrevImage = () => {
-    if (project) {
-      setCurrentImageIndex((prev) => (prev - 1 + project.images.length) % project.images.length);
+    if (project?.images && project.images.length > 0) {
+      const len = project.images.length;
+      setCurrentImageIndex((prev) => (prev - 1 + len) % len);
     }
   };
 
@@ -132,46 +134,48 @@ const ProjectPage: FC = () => {
         )}
 
         {/* Section 6: Pictures */}
-        <section className="project-section pictures-section">
-          <h2 className="section-heading">Pictures</h2>
-          <div className="section-content">
-            <div className="gallery-container">
-              <div className="main-image-container">
-                <button className="gallery-nav-button prev" onClick={handlePrevImage}>
-                  <FaChevronLeft />
-                </button>
-                <div className="main-image-wrapper">
-                  <img
-                    src={project.images[currentImageIndex]}
-                    alt={`${project.title} - Image ${currentImageIndex + 1}`}
-                    className="main-image"
-                  />
-                  <div className="image-counter">
-                    {currentImageIndex + 1} / {project.images.length}
+        {project.images && project.images.length > 0 && (
+          <section className="project-section pictures-section">
+            <h2 className="section-heading">Pictures</h2>
+            <div className="section-content">
+              <div className="gallery-container">
+                <div className="main-image-container">
+                  <button className="gallery-nav-button prev" onClick={handlePrevImage}>
+                    <FaChevronLeft />
+                  </button>
+                  <div className="main-image-wrapper">
+                    <img
+                      src={project.images[currentImageIndex]}
+                      alt={`${project.title} - Image ${currentImageIndex + 1}`}
+                      className="main-image"
+                    />
+                    <div className="image-counter">
+                      {currentImageIndex + 1} / {project.images.length}
+                    </div>
                   </div>
+                  <button className="gallery-nav-button next" onClick={handleNextImage}>
+                    <FaChevronRight />
+                  </button>
                 </div>
-                <button className="gallery-nav-button next" onClick={handleNextImage}>
-                  <FaChevronRight />
-                </button>
-              </div>
 
-              {/* Thumbnail Strip */}
-              {project.images.length > 1 && (
-                <div className="thumbnail-strip">
-                  {project.images.map((image, index) => (
-                    <button
-                      key={index}
-                      className={`thumbnail ${index === currentImageIndex ? 'active' : ''}`}
-                      onClick={() => handleThumbnailClick(index)}
-                    >
-                      <img src={image} alt={`Thumbnail ${index + 1}`} />
-                    </button>
-                  ))}
-                </div>
-              )}
+                {/* Thumbnail Strip */}
+                {project.images.length > 1 && (
+                  <div className="thumbnail-strip">
+                    {project.images.map((image, index) => (
+                      <button
+                        key={index}
+                        className={`thumbnail ${index === currentImageIndex ? 'active' : ''}`}
+                        onClick={() => handleThumbnailClick(index)}
+                      >
+                        <img src={image} alt={`Thumbnail ${index + 1}`} />
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* Section 7: Additional Links */}
         {(project.githubUrl || project.liveUrl || (project.additionalLinks && project.additionalLinks.length > 0)) && (

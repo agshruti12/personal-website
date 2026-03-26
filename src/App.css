@@ -127,6 +127,10 @@ main {
   width: 100%;
   min-height: calc(100vh - 60px);
   padding: 4rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
 .home-content {
@@ -206,6 +210,15 @@ main {
   min-height: 500px;
   background-color: var(--color-sand);
   border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-image-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 /* Contact Links Styles */
@@ -317,6 +330,170 @@ main {
   height: 200px;
   overflow: hidden;
   position: relative;
+}
+
+/* Hacks Grid Interface */
+.hacks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.hacks-card {
+  min-height: 220px;
+  background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 16px;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+  transform-style: preserve-3d;
+  animation: cardFadeIn 0.5s ease-out backwards;
+  animation-delay: calc(var(--card-index) * 0.05s);
+  overflow: hidden;
+}
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.hacks-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(224, 122, 95, 0.5), rgba(255, 255, 255, 0.1), rgba(224, 122, 95, 0.3));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.hacks-card-glow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(224, 122, 95, 0.15) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.hacks-card:hover .hacks-card-glow {
+  opacity: 1;
+}
+
+.hacks-card:hover {
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(224, 122, 95, 0.2);
+}
+
+.hacks-card-content {
+  padding: 1.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+.hacks-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.hacks-card-header h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+  line-height: 1.3;
+  flex: 1;
+}
+
+.hacks-card-arrow {
+  font-size: 1.5rem;
+  color: var(--color-terracotta);
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+}
+
+.hacks-card:hover .hacks-card-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.hacks-card-tagline {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+  margin: 0 0 auto;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.hacks-card-techs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.hacks-tech-pill {
+  font-size: 0.7rem;
+  padding: 0.25rem 0.6rem;
+  background: rgba(224, 122, 95, 0.15);
+  color: var(--color-terracotta);
+  border-radius: 20px;
+  border: 1px solid rgba(224, 122, 95, 0.3);
+  transition: all 0.2s ease;
+}
+
+.hacks-tech-pill.more {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.6);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.hacks-card:hover .hacks-tech-pill {
+  background: rgba(224, 122, 95, 0.25);
+  border-color: rgba(224, 122, 95, 0.5);
+}
+
+@media (max-width: 768px) {
+  .hacks-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .hacks-card {
+    min-height: 200px;
+  }
+
+  .hacks-card-header h3 {
+    font-size: 0.95rem;
+  }
 }
 
 .gallery-img {

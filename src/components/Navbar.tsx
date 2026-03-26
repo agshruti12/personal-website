@@ -11,8 +11,6 @@ const Navbar: FC = () => {
       <ul className="nav-links">
         <li><Link to="/">home</Link></li>
         <li><Link to="/portfolio">portfolio</Link></li>
-        <li><Link to="/about">about me</Link></li>
-        <li><Link to="/contact">contact</Link></li>
       </ul>
     </nav>
   );

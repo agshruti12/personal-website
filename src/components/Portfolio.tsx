@@ -142,19 +142,21 @@ const Portfolio: FC = () => {
   };
 
   const handleNextImage = () => {
-    if (popup.item) {
+    if (popup.item?.images && popup.item.images.length > 0) {
+      const len = popup.item.images.length;
       setPopup(prev => ({
         ...prev,
-        currentImageIndex: (prev.currentImageIndex + 1) % prev.item!.images.length
+        currentImageIndex: (prev.currentImageIndex + 1) % len
       }));
     }
   };
 
   const handlePrevImage = () => {
-    if (popup.item) {
+    if (popup.item?.images && popup.item.images.length > 0) {
+      const len = popup.item.images.length;
       setPopup(prev => ({
         ...prev,
-        currentImageIndex: (prev.currentImageIndex - 1 + prev.item!.images.length) % prev.item!.images.length
+        currentImageIndex: (prev.currentImageIndex - 1 + len) % len
       }));
     }
   };
@@ -188,26 +190,42 @@ const Portfolio: FC = () => {
       </div>
       {isTransitioning && <div className="theme-transition-overlay"></div>}
       {theme === 'dark' && (
-        <div className="gallery-grid">
-          {getProjectsByCategory('hacks').map((project) => (
-            <div 
-              key={project.id} 
-              className="gallery-item clickable"
+        <div className="hacks-grid">
+          {getProjectsByCategory('hacks').map((project, index) => (
+            <div
+              key={project.id}
+              className="hacks-card"
+              style={{ '--card-index': index } as React.CSSProperties}
               onClick={() => handleHacksProjectClick(project)}
+              onMouseMove={(e) => {
+                const card = e.currentTarget;
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 15;
+                const rotateY = (centerX - x) / 15;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+              }}
             >
-              <div className="gallery-image">
-                <img 
-                  src={project.images[0]} 
-                  className="gallery-img"
-                />
-              </div>
-              <div className="gallery-caption">
-                <h3>{project.title}</h3>
-                <p>{project.tagline}</p>
-                <div className="project-technologies-caption">
-                  {project.technologies && project.technologies.map(tech => (
-                    <span key={tech} className="tech-tag">{tech}</span>
+              <div className="hacks-card-glow"></div>
+              <div className="hacks-card-content">
+                <div className="hacks-card-header">
+                  <h3>{project.title}</h3>
+                  <span className="hacks-card-arrow">→</span>
+                </div>
+                <p className="hacks-card-tagline">{project.tagline}</p>
+                <div className="hacks-card-techs">
+                  {project.technologies && project.technologies.slice(0, 4).map(tech => (
+                    <span key={tech} className="hacks-tech-pill">{tech}</span>
                   ))}
+                  {project.technologies && project.technologies.length > 4 && (
+                    <span className="hacks-tech-pill more">+{project.technologies.length - 4}</span>
+                  )}
                 </div>
               </div>
             </div>
@@ -249,10 +267,12 @@ const Portfolio: FC = () => {
                 onClick={(e) => handleGalleryItemClick(e, item)}
               >
                 <div className="gallery-image">
-                  <img 
-                    src={item.images[0]} 
-                    className="gallery-img"
-                  />
+                  {item.images && item.images.length > 0 && (
+                    <img 
+                      src={item.images[0]} 
+                      className="gallery-img"
+                    />
+                  )}
                 </div>
                 <div className="gallery-caption">
                   <h3>{item.title}</h3>
@@ -277,21 +297,23 @@ const Portfolio: FC = () => {
             
             <div className="popup-layout">
               {/* Left side - Image carousel */}
-              <div className="popup-carousel-section">
-                <div className="carousel-container">
-                  <button className="carousel-button prev" onClick={handlePrevImage}>‹</button>
-                  <div className="carousel-image">
-                    <img 
-                      src={popup.item.images[popup.currentImageIndex]} 
-                      className="carousel-img"
-                    />
-                    <div className="image-counter">
-                      {popup.currentImageIndex + 1} / {popup.item.images.length}
+              {popup.item.images && popup.item.images.length > 0 && (
+                <div className="popup-carousel-section">
+                  <div className="carousel-container">
+                    <button className="carousel-button prev" onClick={handlePrevImage}>‹</button>
+                    <div className="carousel-image">
+                      <img 
+                        src={popup.item.images[popup.currentImageIndex]} 
+                        className="carousel-img"
+                      />
+                      <div className="image-counter">
+                        {popup.currentImageIndex + 1} / {popup.item.images.length}
+                      </div>
                     </div>
+                    <button className="carousel-button next" onClick={handleNextImage}>›</button>
                   </div>
-                  <button className="carousel-button next" onClick={handleNextImage}>›</button>
                 </div>
-              </div>
+              )}
               
               {/* Right side - Text details */}
               <div className="popup-details">

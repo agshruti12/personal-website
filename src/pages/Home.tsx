@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { TypeAnimation } from 'react-type-animation';
-import { FaLinkedin, FaGithub, FaTwitter } from 'react-icons/fa';
+import { FaLinkedin, FaGithub, FaEnvelope } from 'react-icons/fa';
 
 const Home: FC = () => {
   return (
@@ -39,13 +39,14 @@ const Home: FC = () => {
             <a href="https://github.com/agshruti12" target="_blank" rel="noopener noreferrer" className="social-button">
               <FaGithub />
             </a>
-            {/* <a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer" className="social-button">
-              <FaTwitter />
-            </a> */}
+            <a href="mailto:agshruti@seas.upenn.edu" className="social-button">
+              <FaEnvelope />
+            </a>
           </div>
         </div>
         <div className="home-image">
           {/* Add your image here */}
+          <img src="/images/home_image.png" alt="Home Image" className="home-image-img" />
         </div>
       </div>
     </div>
