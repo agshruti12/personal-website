@@ -269,7 +269,7 @@ const Portfolio: FC = () => {
                 <div className="gallery-image">
                   {item.images && item.images.length > 0 && (
                     <img 
-                      src={item.images[0]} 
+                      src={`${import.meta.env.BASE_URL}${item.images[0]}`} 
                       className="gallery-img"
                     />
                   )}
@@ -303,7 +303,7 @@ const Portfolio: FC = () => {
                     <button className="carousel-button prev" onClick={handlePrevImage}>‹</button>
                     <div className="carousel-image">
                       <img 
-                        src={popup.item.images[popup.currentImageIndex]} 
+                        src={`${import.meta.env.BASE_URL}${popup.item.images[popup.currentImageIndex]}`} 
                         className="carousel-img"
                       />
                       <div className="image-counter">

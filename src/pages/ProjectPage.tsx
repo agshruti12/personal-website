@@ -145,7 +145,7 @@ const ProjectPage: FC = () => {
                   </button>
                   <div className="main-image-wrapper">
                     <img
-                      src={project.images[currentImageIndex]}
+                      src={`${import.meta.env.BASE_URL}${project.images[currentImageIndex]}`}
                       alt={`${project.title} - Image ${currentImageIndex + 1}`}
                       className="main-image"
                     />
@@ -167,7 +167,7 @@ const ProjectPage: FC = () => {
                         className={`thumbnail ${index === currentImageIndex ? 'active' : ''}`}
                         onClick={() => handleThumbnailClick(index)}
                       >
-                        <img src={image} alt={`Thumbnail ${index + 1}`} />
+                        <img src={`${import.meta.env.BASE_URL}${image}`} alt={`Thumbnail ${index + 1}`} />
                       </button>
                     ))}
                   </div>

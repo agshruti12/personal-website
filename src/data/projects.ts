@@ -243,7 +243,7 @@ export const projects: Project[] = [
     team: [],
     technologies: [],
     implementation: '',
-    images: ['/images/clicks/fall_atma_1.jpg', '/images/clicks/fall_atma_2.jpg', '/images/clicks/fall_atma_3.jpg', '/images/clicks/fall_atma_4.jpg'],
+    images: ['images/clicks/fall_atma_1.jpg', 'images/clicks/fall_atma_2.jpg', 'images/clicks/fall_atma_3.jpg', 'images/clicks/fall_atma_4.jpg'],
   },
 
   // Thought Children Projects

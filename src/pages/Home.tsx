@@ -46,7 +46,7 @@ const Home: FC = () => {
         </div>
         <div className="home-image">
           {/* Add your image here */}
-          <img src="/images/home_image.png" alt="Home Image" className="home-image-img" />
+          <img src={`${import.meta.env.BASE_URL}images/home_image.png`} alt="Home Image" className="home-image-img" />
         </div>
       </div>
     </div>

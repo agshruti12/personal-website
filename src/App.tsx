@@ -15,7 +15,7 @@ function AppContent() {
   }, [theme]);
 
   return (
-    <Router>
+    <Router basename="/personal-website">
       <Navbar />
       <main>
         <Routes>
