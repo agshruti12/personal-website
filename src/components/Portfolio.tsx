@@ -1,9 +1,9 @@
 import type { FC } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { getProjectsByCategory, type Project } from '../data/projects';
-import { FaAngleDoubleUp, FaGithub, } from 'react-icons/fa';
+import { FaAngleDoubleUp, FaGithub, FaExternalLinkAlt, FaArrowLeft, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 
 interface GalleryItem extends Project {
@@ -23,15 +23,21 @@ interface PopupState {
   currentImageIndex: number;
 }
 
+interface BrowserViewState {
+  isOpen: boolean;
+  selectedProjectId: string | null;
+  currentImageIndex: number;
+}
+
 const Portfolio: FC = () => {
   const { theme, setTheme } = useTheme();
-  const navigate = useNavigate();
   const location = useLocation();
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
   const [nextItemIndex, setNextItemIndex] = useState(0);
   const [previewPosition, setPreviewPosition] = useState<PreviewPosition | null>(null);
   const [popup, setPopup] = useState<PopupState>({ isOpen: false, item: null, currentImageIndex: 0 });
+  const [browserView, setBrowserView] = useState<BrowserViewState>({ isOpen: false, selectedProjectId: null, currentImageIndex: 0 });
 
   // Check for navigation state to set initial tab
   useEffect(() => {
@@ -40,6 +46,18 @@ const Portfolio: FC = () => {
       setTheme(state.tab);
     }
   }, [location.state, setTheme]);
+
+  // Toggle body class when browser view is open to hide navbar
+  useEffect(() => {
+    if (browserView.isOpen) {
+      document.body.classList.add('browser-view-open');
+    } else {
+      document.body.classList.remove('browser-view-open');
+    }
+    return () => {
+      document.body.classList.remove('browser-view-open');
+    };
+  }, [browserView.isOpen]);
 
   // Initialize gallery items based on theme
   useEffect(() => {
@@ -63,6 +81,8 @@ const Portfolio: FC = () => {
   }, [setTheme]);
 
   const handleSectionClick = (section: 'dark' | 'gallery' | 'light') => {
+    setBrowserView({ isOpen: false, selectedProjectId: null, currentImageIndex: 0 });
+    
     if (section === 'dark') {
       setIsTransitioning(true);
       setTimeout(() => {
@@ -162,8 +182,45 @@ const Portfolio: FC = () => {
   };
 
   const handleHacksProjectClick = (project: Project) => {
-    navigate(`/project/${project.id}`);
+    setBrowserView({ isOpen: true, selectedProjectId: project.id, currentImageIndex: 0 });
   };
+
+  const handleBrowserBack = () => {
+    setBrowserView({ isOpen: false, selectedProjectId: null, currentImageIndex: 0 });
+  };
+
+  const handleTabClick = (projectId: string) => {
+    setBrowserView(prev => ({ ...prev, selectedProjectId: projectId, currentImageIndex: 0 }));
+  };
+
+  const handleBrowserNextImage = () => {
+    const selectedProject = hacksProjects.find(p => p.id === browserView.selectedProjectId);
+    if (selectedProject?.images && selectedProject.images.length > 0) {
+      const len = selectedProject.images.length;
+      setBrowserView(prev => ({
+        ...prev,
+        currentImageIndex: (prev.currentImageIndex + 1) % len
+      }));
+    }
+  };
+
+  const handleBrowserPrevImage = () => {
+    const selectedProject = hacksProjects.find(p => p.id === browserView.selectedProjectId);
+    if (selectedProject?.images && selectedProject.images.length > 0) {
+      const len = selectedProject.images.length;
+      setBrowserView(prev => ({
+        ...prev,
+        currentImageIndex: (prev.currentImageIndex - 1 + len) % len
+      }));
+    }
+  };
+
+  const handleBrowserThumbnailClick = (index: number) => {
+    setBrowserView(prev => ({ ...prev, currentImageIndex: index }));
+  };
+
+  const hacksProjects = getProjectsByCategory('hacks');
+  const selectedProject = hacksProjects.find(p => p.id === browserView.selectedProjectId);
 
   return (
     <section id="portfolio" className="section">
@@ -189,9 +246,9 @@ const Portfolio: FC = () => {
         </button>
       </div>
       {isTransitioning && <div className="theme-transition-overlay"></div>}
-      {theme === 'dark' && (
+      {theme === 'dark' && !browserView.isOpen && (
         <div className="hacks-grid">
-          {getProjectsByCategory('hacks').map((project, index) => (
+          {hacksProjects.map((project, index) => (
             <div
               key={project.id}
               className="hacks-card"
@@ -230,6 +287,172 @@ const Portfolio: FC = () => {
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Browser Window View for Hacks */}
+      {theme === 'dark' && browserView.isOpen && selectedProject && (
+        <div className="browser-window">
+          {/* Browser Chrome */}
+          <div className="browser-chrome">
+            <div className="browser-controls">
+              <button className="browser-control close" onClick={handleBrowserBack}></button>
+              <span className="browser-control minimize"></span>
+              <span className="browser-control maximize"></span>
+            </div>
+            
+            {/* Browser Tabs */}
+            <div className="browser-tabs">
+              {hacksProjects.map((project) => (
+                <button
+                  key={project.id}
+                  className={`browser-tab ${project.id === browserView.selectedProjectId ? 'active' : ''}`}
+                  onClick={() => handleTabClick(project.id)}
+                  title={project.title}
+                >
+                  <span className="tab-title">{project.title}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Address Bar */}
+          <div className="browser-address-bar">
+            <button className="address-back-btn" onClick={handleBrowserBack}>
+              <FaArrowLeft />
+            </button>
+            <div className="address-input">
+              <span className="address-protocol">https://</span>
+              <span className="address-domain">agshruti.com/project/{selectedProject.title.toLowerCase().replace(/\s+/g, '-')}</span>
+            </div>
+          </div>
+
+          {/* Browser Content */}
+          <div className="browser-content">
+            <div className="browser-page">
+              {/* Title Section */}
+              <section className="browser-section title-section">
+                <h1 className="browser-project-title">{selectedProject.title}</h1>
+                {selectedProject.tagline && <p className="browser-project-tagline">{selectedProject.tagline}</p>}
+              </section>
+
+              {/* Team Section */}
+              {selectedProject.team.length > 0 && (
+                <section className="browser-section">
+                  <h2 className="browser-section-heading">Team</h2>
+                  <div className="browser-team-members">
+                    {selectedProject.team.map((member, index) => (
+                      <div key={index} className="browser-team-member">
+                        <div className="browser-member-avatar">{member.initials}</div>
+                        <div className="browser-member-info">
+                          <span className="browser-member-name">{member.name}</span>
+                          <span className="browser-member-role">{member.role}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
+
+              {/* Overview Section */}
+              {selectedProject.overview && (
+                <section className="browser-section">
+                  <h2 className="browser-section-heading">Overview</h2>
+                  <p className="browser-section-text">{selectedProject.overview}</p>
+                </section>
+              )}
+
+              {/* Technologies Section */}
+              {selectedProject.technologies && selectedProject.technologies.length > 0 && (
+                <section className="browser-section">
+                  <h2 className="browser-section-heading">Tools & Technologies</h2>
+                  <div className="browser-tools-grid">
+                    {selectedProject.technologies.map((tech, index) => (
+                      <div key={index} className="browser-tool-item">
+                        <span className="browser-tool-name">{tech}</span>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
+
+              {/* Implementation Section */}
+              {selectedProject.implementation && (
+                <section className="browser-section">
+                  <h2 className="browser-section-heading">Implementation</h2>
+                  <p className="browser-section-text">{selectedProject.implementation}</p>
+                </section>
+              )}
+
+              {/* Pictures Section */}
+              {selectedProject.images && selectedProject.images.length > 0 && (
+                <section className="browser-section">
+                  <h2 className="browser-section-heading">Pictures</h2>
+                  <div className="browser-gallery-container">
+                    <div className="browser-main-image-container">
+                      <button className="browser-gallery-nav prev" onClick={handleBrowserPrevImage}>
+                        <FaChevronLeft />
+                      </button>
+                      <div className="browser-main-image-wrapper">
+                        <img
+                          src={`${import.meta.env.BASE_URL}${selectedProject.images[browserView.currentImageIndex]}`}
+                          alt={`${selectedProject.title} - Image ${browserView.currentImageIndex + 1}`}
+                          className="browser-main-image"
+                        />
+                        <div className="browser-image-counter">
+                          {browserView.currentImageIndex + 1} / {selectedProject.images.length}
+                        </div>
+                      </div>
+                      <button className="browser-gallery-nav next" onClick={handleBrowserNextImage}>
+                        <FaChevronRight />
+                      </button>
+                    </div>
+
+                    {selectedProject.images.length > 1 && (
+                      <div className="browser-thumbnail-strip">
+                        {selectedProject.images.map((image, index) => (
+                          <button
+                            key={index}
+                            className={`browser-thumbnail ${index === browserView.currentImageIndex ? 'active' : ''}`}
+                            onClick={() => handleBrowserThumbnailClick(index)}
+                          >
+                            <img src={`${import.meta.env.BASE_URL}${image}`} alt={`Thumbnail ${index + 1}`} />
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </section>
+              )}
+
+              {/* Links Section */}
+              {(selectedProject.githubUrl || selectedProject.liveUrl || (selectedProject.additionalLinks && selectedProject.additionalLinks.length > 0)) && (
+                <section className="browser-section">
+                  <h2 className="browser-section-heading">Additional Links</h2>
+                  <div className="browser-links-container">
+                    {selectedProject.githubUrl && (
+                      <a href={selectedProject.githubUrl} target="_blank" rel="noopener noreferrer" className="browser-project-link github">
+                        <FaGithub />
+                        <span>View on GitHub</span>
+                      </a>
+                    )}
+                    {selectedProject.liveUrl && (
+                      <a href={selectedProject.liveUrl} target="_blank" rel="noopener noreferrer" className="browser-project-link live">
+                        <FaExternalLinkAlt />
+                        <span>Live Demo</span>
+                      </a>
+                    )}
+                    {selectedProject.additionalLinks && selectedProject.additionalLinks.map((link, index) => (
+                      <a key={index} href={link.url} target="_blank" rel="noopener noreferrer" className="browser-project-link additional">
+                        <FaExternalLinkAlt />
+                        <span>{link.label}</span>
+                      </a>
+                    ))}
+                  </div>
+                </section>
+              )}
+            </div>
+          </div>
         </div>
       )}
       {theme === 'gallery' && (

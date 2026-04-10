@@ -74,6 +74,13 @@ main {
   align-items: center;
 }
 
+/* Hide navbar when browser view is open */
+body.browser-view-open .navbar {
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+}
+
 #root[data-theme="dark"] .navbar {
   background-color: rgba(0, 0, 0, 0.9);
   animation: fadeInDark 0.4s ease-in-out forwards;
@@ -1109,6 +1116,634 @@ main {
     min-width: 100%;
     max-width: 100%;
     padding: 1rem;
+  }
+}
+
+/* Browser Window Styles for Hacks Portfolio */
+.browser-window {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0f0f1a;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  animation: browserFadeIn 0.3s ease-out;
+}
+
+@keyframes browserFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Browser Tabs Bar - Full Width at Top */
+.browser-chrome {
+  display: flex;
+  align-items: stretch;
+  background: linear-gradient(180deg, #1e1e2e 0%, #181825 100%);
+  width: 100%;
+  min-height: 44px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.browser-controls {
+  display: flex;
+  gap: 8px;
+  padding: 0 1rem;
+  flex-shrink: 0;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.browser-control {
+  width: 14px;
+  height: 14px;
+  min-width: 14px;
+  min-height: 14px;
+  max-width: 14px;
+  max-height: 14px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.browser-control.close {
+  background-color: #ff5f57;
+}
+
+.browser-control.close:hover {
+  background-color: #ff3b30;
+  transform: scale(1.1);
+}
+
+.browser-control.minimize {
+  background-color: #ffbd2e;
+}
+
+.browser-control.maximize {
+  background-color: #28c840;
+}
+
+/* Browser Tabs - Scrollable Full Width */
+.browser-tabs {
+  display: flex;
+  gap: 1px;
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 8px 1rem 0 0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  align-items: flex-end;
+}
+
+.browser-tabs::-webkit-scrollbar {
+  height: 4px;
+}
+
+.browser-tabs::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.browser-tabs::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+}
+
+.browser-tabs::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.browser-tab {
+  display: flex;
+  align-items: center;
+  padding: 0.6rem 1.5rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: none;
+  border-radius: 8px 8px 0 0;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-bottom: -1px;
+  position: relative;
+  clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 100%, 0 100%);
+}
+
+.browser-tab:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.browser-tab.active {
+  background-color: #0f0f1a;
+  color: #fff;
+  clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 100%, 0 100%);
+}
+
+.tab-title {
+  white-space: nowrap;
+}
+
+/* Address Bar */
+.browser-address-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #0f0f1a;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  width: 100%;
+}
+
+.address-back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  border: none;
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.address-back-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.address-input {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.08);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 0.85rem;
+}
+
+.address-protocol {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.address-domain {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Browser Content */
+.browser-content {
+  background-color: #0f0f1a;
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+.browser-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.browser-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.browser-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 5px;
+  border: 2px solid #0f0f1a;
+}
+
+.browser-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.browser-page {
+  padding: 3rem 5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Browser Page Sections */
+.browser-section {
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.browser-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.browser-section.title-section {
+  text-align: left;
+  padding-bottom: 1.5rem;
+}
+
+.browser-project-title {
+  font-family: 'Courier New', monospace;
+  font-size: 2.5rem;
+  color: #fff;
+  margin: 0 0 0.75rem 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 1.2;
+}
+
+.browser-project-tagline {
+  font-family: 'Courier New', monospace;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.browser-section-heading {
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  color: var(--color-terracotta);
+  margin: 0 0 1.25rem 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+
+.browser-section-text {
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+/* Team Members */
+.browser-team-members {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.browser-team-member {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.browser-team-member:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.browser-member-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-terracotta);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.browser-member-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.browser-member-name {
+  font-size: 0.9rem;
+  color: #fff;
+  font-weight: 600;
+}
+
+.browser-member-role {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Tools Grid */
+.browser-tools-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.browser-tool-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.browser-tool-item:hover {
+  background-color: #fff;
+  border-color: #fff;
+}
+
+.browser-tool-item:hover .browser-tool-name {
+  color: #000;
+}
+
+.browser-tool-name {
+  font-size: 0.85rem;
+  color: #fff;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+/* Gallery */
+.browser-gallery-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.browser-main-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.browser-main-image-wrapper {
+  position: relative;
+  flex: 1;
+  max-width: 100%;
+  height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.browser-main-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.browser-image-counter {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+}
+
+.browser-gallery-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background-color: transparent;
+  color: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.browser-gallery-nav:hover {
+  background-color: #fff;
+  color: #000;
+  border-color: #fff;
+}
+
+.browser-thumbnail-strip {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 0.5rem 0;
+  justify-content: flex-start;
+}
+
+.browser-thumbnail {
+  flex-shrink: 0;
+  width: 60px;
+  height: 45px;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  background: none;
+}
+
+.browser-thumbnail:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.browser-thumbnail.active {
+  border-color: #fff;
+  border-width: 3px;
+}
+
+.browser-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Links */
+.browser-links-container {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.browser-project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  text-decoration: none;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.browser-project-link.github {
+  background-color: #24292e;
+  color: white;
+  border: 1px solid #24292e;
+}
+
+.browser-project-link.github:hover {
+  background-color: #2f363d;
+  transform: translateY(-2px);
+}
+
+.browser-project-link.live {
+  background-color: var(--color-terracotta);
+  color: white;
+  border: 1px solid var(--color-terracotta);
+}
+
+.browser-project-link.live:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.browser-project-link.additional {
+  background-color: #4a5568;
+  color: white;
+  border: 1px solid #4a5568;
+}
+
+.browser-project-link.additional:hover {
+  background-color: #5a6578;
+  transform: translateY(-2px);
+}
+
+/* Responsive Design for Browser Window */
+@media (max-width: 900px) {
+  .browser-project-title {
+    font-size: 2rem;
+  }
+
+  .browser-tab {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+  }
+
+  .browser-main-image-wrapper {
+    height: 300px;
+  }
+
+  .browser-page {
+    padding: 2rem 2.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .browser-chrome {
+    min-height: 38px;
+  }
+
+  .browser-controls {
+    padding: 0 0.75rem;
+    gap: 6px;
+  }
+
+  .browser-control {
+    width: 12px;
+    height: 12px;
+    min-width: 12px;
+    min-height: 12px;
+    max-width: 12px;
+    max-height: 12px;
+  }
+
+  .browser-tabs {
+    padding: 6px 0.75rem 0 0;
+  }
+
+  .browser-tab {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.7rem;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .browser-address-bar {
+    padding: 0.4rem 0.75rem;
+  }
+
+  .address-back-btn {
+    width: 26px;
+    height: 26px;
+  }
+
+  .address-input {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.75rem;
+  }
+
+  .browser-page {
+    padding: 1.5rem;
+  }
+
+  .browser-project-title {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+  }
+
+  .browser-project-tagline {
+    font-size: 0.95rem;
+  }
+
+  .browser-section-heading {
+    font-size: 0.9rem;
+  }
+
+  .browser-section-text {
+    font-size: 0.9rem;
+  }
+
+  .browser-team-members {
+    flex-direction: column;
+  }
+
+  .browser-main-image-wrapper {
+    height: 250px;
+  }
+
+  .browser-gallery-nav {
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+  }
+
+  .browser-thumbnail {
+    width: 50px;
+    height: 35px;
+  }
+
+  .browser-links-container {
+    flex-direction: column;
+  }
+
+  .browser-project-link {
+    justify-content: center;
   }
 }
 
