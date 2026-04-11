@@ -149,7 +149,7 @@ body.browser-view-open .navbar {
 }
 
 .intro-text {
-  flex: 1;
+  flex: 3;
   padding-right: 2rem;
   font-weight: 400;
   font-size: 1.3rem;
@@ -213,17 +213,15 @@ body.browser-view-open .navbar {
 }
 
 .home-image {
-  flex: 1;
+  flex: 2;
   min-height: 500px;
-  background-color: var(--color-sand);
-  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .home-image-img {
-  max-width: 100%;
+  max-width: 130%;
   max-height: 100%;
   object-fit: contain;
 }
@@ -1229,7 +1227,7 @@ body.browser-view-open .navbar {
   padding: 0.6rem 1.5rem;
   background-color: rgba(255, 255, 255, 0.05);
   border: none;
-  border-radius: 8px 8px 0 0;
+  border-radius: 20px 20px 0 0;
   color: rgba(255, 255, 255, 0.5);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 0.8rem;
@@ -1239,7 +1237,7 @@ body.browser-view-open .navbar {
   flex-shrink: 0;
   margin-bottom: -1px;
   position: relative;
-  clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 100%, 0 100%);
+  clip-path: polygon(3px 0, calc(100% - 3px) 0, 100% 100%, 0 100%);
 }
 
 .browser-tab:hover {
@@ -1250,7 +1248,7 @@ body.browser-view-open .navbar {
 .browser-tab.active {
   background-color: #0f0f1a;
   color: #fff;
-  clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 100%, 0 100%);
+  clip-path: polygon(3px 0, calc(100% - 3px) 0, 100% 100%, 0 100%);
 }
 
 .tab-title {

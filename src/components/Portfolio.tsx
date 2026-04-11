@@ -336,6 +336,33 @@ const Portfolio: FC = () => {
                 {selectedProject.tagline && <p className="browser-project-tagline">{selectedProject.tagline}</p>}
               </section>
 
+              {/* Links Section */}
+              {(selectedProject.githubUrl || selectedProject.liveUrl || (selectedProject.additionalLinks && selectedProject.additionalLinks.length > 0)) && (
+                <section className="browser-section">
+                  <h2 className="browser-section-heading">Links</h2>
+                  <div className="browser-links-container">
+                    {selectedProject.githubUrl && (
+                      <a href={selectedProject.githubUrl} target="_blank" rel="noopener noreferrer" className="browser-project-link github">
+                        <FaGithub />
+                        <span>View on GitHub</span>
+                      </a>
+                    )}
+                    {selectedProject.liveUrl && (
+                      <a href={selectedProject.liveUrl} target="_blank" rel="noopener noreferrer" className="browser-project-link live">
+                        <FaExternalLinkAlt />
+                        <span>Live Demo</span>
+                      </a>
+                    )}
+                    {selectedProject.additionalLinks && selectedProject.additionalLinks.map((link, index) => (
+                      <a key={index} href={link.url} target="_blank" rel="noopener noreferrer" className="browser-project-link additional">
+                        <FaExternalLinkAlt />
+                        <span>{link.label}</span>
+                      </a>
+                    ))}
+                  </div>
+                </section>
+              )}
+
               {/* Team Section */}
               {selectedProject.team.length > 0 && (
                 <section className="browser-section">
@@ -425,32 +452,6 @@ const Portfolio: FC = () => {
                 </section>
               )}
 
-              {/* Links Section */}
-              {(selectedProject.githubUrl || selectedProject.liveUrl || (selectedProject.additionalLinks && selectedProject.additionalLinks.length > 0)) && (
-                <section className="browser-section">
-                  <h2 className="browser-section-heading">Additional Links</h2>
-                  <div className="browser-links-container">
-                    {selectedProject.githubUrl && (
-                      <a href={selectedProject.githubUrl} target="_blank" rel="noopener noreferrer" className="browser-project-link github">
-                        <FaGithub />
-                        <span>View on GitHub</span>
-                      </a>
-                    )}
-                    {selectedProject.liveUrl && (
-                      <a href={selectedProject.liveUrl} target="_blank" rel="noopener noreferrer" className="browser-project-link live">
-                        <FaExternalLinkAlt />
-                        <span>Live Demo</span>
-                      </a>
-                    )}
-                    {selectedProject.additionalLinks && selectedProject.additionalLinks.map((link, index) => (
-                      <a key={index} href={link.url} target="_blank" rel="noopener noreferrer" className="browser-project-link additional">
-                        <FaExternalLinkAlt />
-                        <span>{link.label}</span>
-                      </a>
-                    ))}
-                  </div>
-                </section>
-              )}
             </div>
           </div>
         </div>
@@ -464,7 +465,7 @@ const Portfolio: FC = () => {
         >
           {nextItemIndex < galleryItems.length && (
             <div className="click-prompt">
-              keep going!
+              click around!
             </div>
           )}
           {previewPosition && (
