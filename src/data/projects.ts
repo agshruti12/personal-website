@@ -159,7 +159,6 @@ export const projects: Project[] = [
     technologies: ['IMU Sensors', 'Flask', 'Python', 'Cerebras AI', 'Spotify API', 'UIKit', 'Swift'],
     implementation: "We leveraged the IMU sensor on the iPhone to measure the user's cadence, as many people run with either their phone or their Apple Watch to track their workouts, and both of these devices have IMU sensors that we can access. Although the current system is built for the iPhone, adding watch support is a relatively straightforward extension. We use a python backend server to process the raw signal data received from the IMU and compute the user's running cadence using Fourier transforms. On the mobile app, we use the Spotify API to access the user's playlists, find the tempo of the songs, and play songs that match the user's running pace in real time. Our app frontend is developed using UIKit. We also leveraged the Cerebras AI API to allow users the option to play music via an unstructured chat request (i.e. 'I want to feel positive on this run!'), rather than select playlists on their own.",
     icon: '🏃',
-    images: ['placeholder-3-1', 'placeholder-3-2', 'placeholder-3-3'],
     githubUrl: 'https://github.com/agshruti12/Stryde',
     liveUrl: 'https://www.youtube.com/watch?v=3voHB-i6Xtw',
   },
