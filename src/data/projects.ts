@@ -282,3 +282,104 @@ export const getProjectsByCategory = (category: 'hacks' | 'clicks' | 'thoughts')
 export const getProjectById = (id: string) => {
   return projects.find(project => project.id === id);
 };
+
+// Blog/Docs data
+export interface BlogPost {
+  id: string;
+  title: string;
+  date: string;
+  color: string;
+  rotation: number;
+  excerpt: string;
+  content: string;
+}
+
+export const blogPosts: BlogPost[] = [
+  {
+    id: 'blog-1',
+    title: 'Why I Love Building Things',
+    date: 'March 15, 2024',
+    color: '#ffeb3b',
+    rotation: -5,
+    excerpt: 'A reflection on the joy of creating...',
+    content: `There's something magical about building things from scratch. Whether it's a piece of software, a hardware project, or even a simple script that automates a mundane task, the act of creation fills me with a sense of purpose.
+
+I remember my first "real" project—a simple Python script that organized my messy downloads folder. It wasn't elegant, it probably had bugs I never found, but watching it work felt like magic. That feeling never really goes away.
+
+What draws me to building is the problem-solving aspect. Every project is a puzzle. You start with an idea, break it down into smaller pieces, and then figure out how to connect them all together. Sometimes the pieces don't fit, and you have to reshape them. Sometimes you realize you need entirely different pieces.
+
+The best part? There's always more to learn. Every project teaches me something new—a new framework, a new design pattern, a new way of thinking about problems. The learning never stops, and that's exactly how I like it.
+
+Building things also connects me to a community of makers. We share our creations, learn from each other's mistakes, and celebrate each other's successes. It's a beautiful thing.
+
+So here's to the builders, the makers, the tinkerers. Keep creating. Keep learning. Keep pushing the boundaries of what's possible.`
+  },
+  {
+    id: 'blog-2',
+    title: 'Lessons from Late Night Debugging',
+    date: 'February 28, 2024',
+    color: '#ff9800',
+    rotation: 3,
+    excerpt: 'What 3 AM teaches you about code...',
+    content: `It's 3 AM. The coffee has long gone cold. Your eyes are burning from staring at the screen. And somewhere in those thousands of lines of code, there's a bug that's making your life miserable.
+
+We've all been there. Those late-night debugging sessions that test not just our technical skills, but our patience, our sanity, and our commitment to this craft we call software engineering.
+
+Here's what I've learned from countless nights spent hunting bugs:
+
+**1. The bug is never where you think it is.**
+You'll spend hours checking the complex algorithm, only to find the issue is a typo in a variable name. Humility is the first lesson of debugging.
+
+**2. Rubber duck debugging works.**
+Explaining your code out loud—to a rubber duck, a pet, or an imaginary friend—often reveals the flaw in your logic. Sometimes you just need to hear yourself think.
+
+**3. Take breaks.**
+The solution often comes when you step away. A short walk, a shower, or even just closing your eyes for five minutes can provide the mental reset you need.
+
+**4. Write tests before you need them.**
+Future you will thank present you. Tests aren't just for catching bugs—they're documentation, they're safety nets, they're peace of mind.
+
+**5. It's okay to ask for help.**
+Fresh eyes catch what tired eyes miss. There's no shame in reaching out to a colleague or posting on Stack Overflow.
+
+The next time you're deep in a debugging session at an ungodly hour, remember: this too shall pass. And when you finally find that bug, the satisfaction will be worth every minute of frustration.`
+  },
+  {
+    id: 'blog-3',
+    title: 'The Art of Learning in Public',
+    date: 'January 10, 2024',
+    color: '#4caf50',
+    rotation: -2,
+    excerpt: 'Why sharing your journey matters...',
+    content: `For the longest time, I was afraid to share my work. What if it wasn't good enough? What if people judged me? What if I was wrong about something?
+
+Then I discovered the concept of "learning in public," and it changed everything.
+
+Learning in public means sharing your journey—the wins, the losses, the confusion, and the breakthroughs. It means writing blog posts about things you just learned, contributing to open source even when you're not an expert, and asking questions without fear of looking foolish.
+
+Here's why it matters:
+
+**You learn faster.**
+When you know you'll be sharing something, you pay more attention. You take better notes. You make sure you actually understand it.
+
+**You help others.**
+That thing you just figured out? Someone else is struggling with it right now. Your explanation, from the perspective of a recent learner, might be exactly what they need.
+
+**You build a portfolio.**
+Every blog post, every project, every contribution becomes part of your story. It shows not just what you know, but how you think and how you grow.
+
+**You connect with people.**
+Some of my best professional relationships started with a blog post or a tweet about something I was learning. People are drawn to authenticity and curiosity.
+
+**You become comfortable with imperfection.**
+Not everything you share will be brilliant. That's okay. Progress over perfection.
+
+So start today. Write about what you learned this week. Share that side project, even if it's not finished. Ask that question you've been too embarrassed to ask.
+
+The world needs more learners who are willing to learn out loud. Be one of them.`
+  }
+];
+
+export const getBlogById = (id: string) => {
+  return blogPosts.find(post => post.id === id);
+};

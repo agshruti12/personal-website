@@ -1745,3 +1745,506 @@ body.browser-view-open .navbar {
   }
 }
 
+/* Docs Placeholder */
+.docs-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 3rem;
+}
+
+.docs-placeholder-content {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 24px;
+  padding: 5rem 8rem;
+  text-align: center;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  animation: placeholderFadeIn 1s ease-out;
+}
+
+.docs-placeholder-text {
+  font-family: 'SF Mono', 'Fira Code', 'Roboto Mono', 'Courier New', monospace;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #999;
+  letter-spacing: 1.5px;
+  text-transform: lowercase;
+}
+
+@keyframes placeholderFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Post-it Notes Board Styles */
+.postit-board {
+  min-height: 70vh;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.postit-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  max-width: 1000px;
+  padding: 2rem;
+}
+
+.postit {
+  width: 220px;
+  min-height: 220px;
+  padding: 1.5rem;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 
+    2px 2px 8px rgba(0, 0, 0, 0.15),
+    inset 0 -40px 40px -40px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  animation: postItDrop 0.5s ease-out backwards;
+}
+
+@keyframes postItDrop {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) rotate(0deg);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.postit:hover {
+  transform: scale(1.05) rotate(0deg) !important;
+  box-shadow: 
+    4px 4px 15px rgba(0, 0, 0, 0.25),
+    inset 0 -40px 40px -40px rgba(0, 0, 0, 0.05);
+  z-index: 10;
+}
+
+.postit-tape {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.6);
+  opacity: 0.7;
+}
+
+.postit-title {
+  font-family: 'Courier New', monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0.5rem 0 0.75rem;
+  line-height: 1.3;
+}
+
+.postit-date {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  color: #666;
+  margin: 0 0 1rem;
+}
+
+.postit-excerpt {
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: #444;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Book View Styles - Notebook Paper with Handwriting */
+.book-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #5c4033 0%, #3e2723 50%, #2c1810 100%);
+  z-index: 1100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: bookFadeIn 0.4s ease-out;
+}
+
+@keyframes bookFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.book-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  perspective: 1500px;
+}
+
+.book-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.book-close:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.1);
+}
+
+.book {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.book-page-wrapper {
+  flex: 1;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.book-page {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 2px 8px 8px 2px;
+  padding: 0;
+  box-shadow: 
+    0 0 30px rgba(0, 0, 0, 0.4),
+    5px 5px 20px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transform-origin: left center;
+  transition: transform 0.6s ease-in-out;
+}
+
+.book-page.flipping-next {
+  animation: flipNext 0.6s ease-in-out;
+}
+
+.book-page.flipping-prev {
+  animation: flipPrev 0.6s ease-in-out;
+}
+
+@keyframes flipNext {
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(-90deg);
+  }
+  51% {
+    transform: rotateY(90deg);
+  }
+  100% {
+    transform: rotateY(0deg);
+  }
+}
+
+@keyframes flipPrev {
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(90deg);
+  }
+  51% {
+    transform: rotateY(-90deg);
+  }
+  100% {
+    transform: rotateY(0deg);
+  }
+}
+
+/* Notebook paper lines */
+.book-page::before {
+  content: '';
+  position: absolute;
+  left: 60px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #ffb3b3;
+  z-index: 1;
+}
+
+.book-page::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 31px,
+    #e0e0e0 31px,
+    #e0e0e0 32px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Spiral binding holes */
+.notebook-holes {
+  position: absolute;
+  left: 15px;
+  top: 0;
+  bottom: 0;
+  width: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 20px 0;
+  z-index: 2;
+}
+
+.notebook-hole {
+  width: 20px;
+  height: 20px;
+  background: #3e2723;
+  border-radius: 50%;
+  box-shadow: inset 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.page-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 2.5rem 2rem 80px;
+  overflow-y: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.page-header {
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.page-title {
+  font-family: 'Caveat', 'Comic Sans MS', cursive;
+  font-size: 2.2rem;
+  color: #1a237e;
+  margin: 0 0 0.5rem;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.page-date {
+  font-family: 'Caveat', 'Comic Sans MS', cursive;
+  font-size: 1.1rem;
+  color: #666;
+  margin: 0;
+}
+
+.page-content {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 1rem;
+}
+
+.page-content p {
+  font-family: 'Caveat', 'Comic Sans MS', cursive;
+  font-size: 1.4rem;
+  color: #1a1a2e;
+  line-height: 2;
+  margin: 0 0 0.5rem;
+  text-align: left;
+}
+
+.page-content .page-subheading {
+  font-family: 'Caveat', 'Comic Sans MS', cursive;
+  font-size: 1.5rem;
+  color: #c62828;
+  font-weight: 700;
+  margin: 1rem 0 0.5rem;
+  text-decoration: underline;
+}
+
+.page-number {
+  text-align: right;
+  font-family: 'Caveat', 'Comic Sans MS', cursive;
+  font-size: 1.2rem;
+  color: #666;
+  padding-top: 1rem;
+  margin-top: auto;
+  padding-right: 1rem;
+}
+
+.page-turn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 55px;
+  height: 55px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.page-turn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.1);
+}
+
+.page-turn:active {
+  transform: scale(0.95);
+}
+
+/* Responsive styles for post-its and book */
+@media (max-width: 768px) {
+  .postit-container {
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+
+  .postit {
+    width: 180px;
+    min-height: 180px;
+    padding: 1.25rem;
+  }
+
+  .postit-title {
+    font-size: 1rem;
+  }
+
+  .book-container {
+    padding: 1rem;
+  }
+
+  .page-inner {
+    padding: 1.5rem 1.5rem 1.5rem 70px;
+  }
+
+  .page-title {
+    font-size: 1.8rem;
+  }
+
+  .page-content p {
+    font-size: 1.2rem;
+    line-height: 1.9;
+  }
+
+  .page-turn {
+    width: 45px;
+    height: 45px;
+    font-size: 1rem;
+  }
+
+  .notebook-holes {
+    left: 10px;
+  }
+
+  .notebook-hole {
+    width: 16px;
+    height: 16px;
+  }
+
+  .book-page::before {
+    left: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .postit {
+    width: 160px;
+    min-height: 160px;
+    padding: 1rem;
+  }
+
+  .postit-title {
+    font-size: 0.9rem;
+  }
+
+  .postit-excerpt {
+    font-size: 0.8rem;
+  }
+
+  .page-inner {
+    padding: 1rem 1rem 1rem 55px;
+  }
+
+  .page-title {
+    font-size: 1.4rem;
+  }
+
+  .page-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+
+  .page-content .page-subheading {
+    font-size: 1.2rem;
+  }
+
+  .page-turn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .book-close {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+  }
+
+  .notebook-holes {
+    left: 8px;
+  }
+
+  .notebook-hole {
+    width: 14px;
+    height: 14px;
+  }
+
+  .book-page::before {
+    left: 40px;
+  }
+
+  .book {
+    gap: 0.75rem;
+  }
+}

@@ -29,6 +29,12 @@ interface BrowserViewState {
   currentImageIndex: number;
 }
 
+interface BookViewState {
+  isOpen: boolean;
+  currentBlogIndex: number;
+  isFlipping: 'next' | 'prev' | null;
+}
+
 const Portfolio: FC = () => {
   const { theme, setTheme } = useTheme();
   const location = useLocation();
@@ -38,6 +44,7 @@ const Portfolio: FC = () => {
   const [previewPosition, setPreviewPosition] = useState<PreviewPosition | null>(null);
   const [popup, setPopup] = useState<PopupState>({ isOpen: false, item: null, currentImageIndex: 0 });
   const [browserView, setBrowserView] = useState<BrowserViewState>({ isOpen: false, selectedProjectId: null, currentImageIndex: 0 });
+  const [, setBookView] = useState<BookViewState>({ isOpen: false, currentBlogIndex: 0, isFlipping: null });
 
   // Check for navigation state to set initial tab
   useEffect(() => {
@@ -82,6 +89,7 @@ const Portfolio: FC = () => {
 
   const handleSectionClick = (section: 'dark' | 'gallery' | 'light') => {
     setBrowserView({ isOpen: false, selectedProjectId: null, currentImageIndex: 0 });
+    setBookView({ isOpen: false, currentBlogIndex: 0, isFlipping: null });
     
     if (section === 'dark') {
       setIsTransitioning(true);
@@ -508,9 +516,10 @@ const Portfolio: FC = () => {
         </div>
       )}
       {theme === 'light' && (
-        <div className="coming-soon">
-          <h2>coming soon...</h2>
-          <p>need to consult my creativity</p>
+        <div className="docs-placeholder">
+          <div className="docs-placeholder-content">
+            <p className="docs-placeholder-text">consulting my creativity...</p>
+          </div>
         </div>
       )}
       {/* Popup for clicks only */}
